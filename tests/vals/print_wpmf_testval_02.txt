@@ -1,0 +1,15 @@
+wpmf object:
+times, a length 35 numeric vector:
+1 2 3 4 5 ... 31 32 33 34 35 
+Number of sampling locations: 10 
+timescales, a length 41 numeric vector:
+2 2.1 2.205 2.31525 2.4310125 ... 11.5836322719437 12.1628138855409 12.770954579818 13.4095023088089 14.0799774242493 
+values, a 35 by 41 matrix, upper left to four digits is:
+          [,1]            [,2]            [,3]            [,4]            [,5]
+[1,]  NaN+NaNi     NaN+   NaNi     NaN+   NaNi     NaN+   NaNi     NaN+   NaNi
+[2,]  NaN+NaNi     NaN+   NaNi     NaN+   NaNi     NaN+   NaNi     NaN+   NaNi
+[3,]  NaN+NaNi     NaN+   NaNi     NaN+   NaNi     NaN+   NaNi     NaN+   NaNi
+[4,] -0.2+  0i -0.1306+0.1425i -0.0707+0.1847i -0.0066+0.1952i  0.0574+0.2062i
+[5,]  0.0+  0i -0.0346-0.1169i -0.0871-0.1309i -0.1258-0.1167i -0.1599-0.1040i
+wtopt: scale.min=2; scale.max.input=NULL; sigma=1.05; f0=1
+significance testing: quick
