@@ -88,7 +88,7 @@ summary.clust<-function(object,...)
             wmf_slot_is=h2,
             wpmf_slot_is=h3)
   
-  #a summary_wsyn object inherits from the list class, but has its own print method, above
+  #a summary_wsyn object inherits from the list class, but has its own print method
   class(res)<-c("summary_wsyn","list")
   return(res)
 }
@@ -132,7 +132,7 @@ print.clust<-function(x,...)
   res<-c()
   for (counter in 1:length(x$modres))
   {
-    res<-c(res,x$modres[[counter]]$totQ)
+    res<-c(res,round(x$modres[[counter]]$totQ,4))
   }
   cat("Modularity values for each step:",paste(res),"\n")
   
