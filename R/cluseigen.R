@@ -1,6 +1,6 @@
 #' Community structure detection in networks 
 #' 
-#' Community structure detection in networks ased on the leading eigenvector of the 
+#' Community structure detection in networks based on the leading eigenvector of the 
 #' community matrix
 #' 
 #' @param adj An adjacency matrix. Should be symmetric with diagonal containing zeros.
@@ -9,7 +9,7 @@
 #' performed by the clustering algorithm. Each element is a vector with entries 
 #' corresponding to rows and columns of adj and indicating the module membership
 #' of the node, following the split. The last element of the list is the final 
-#' clustering determined by algorithm when its halting condition is satisfied.
+#' clustering determined by the algorithm when its halting condition is satisfied.
 #' The first element is always a vector of all 1s (corresponding to before any 
 #' splits are performed).
 #' 
@@ -71,8 +71,8 @@ cluseigen<-function(adj)
   A0<-adj
   n<-nrow(A0)
   
-  A0.pos<-A0; A0.pos[A0.pos<0]=0
-  A0.neg<-A0; A0.neg[A0.neg>0]=0
+  A0.pos<-A0; A0.pos[A0.pos<0]<-0
+  A0.neg<-A0; A0.neg[A0.neg>0]<-0
   A0.neg<-(-A0.neg)
   
   k.pos<-colSums(A0.pos)
@@ -97,12 +97,19 @@ cluseigen<-function(adj)
     i.remain<-which(modules==a) # nodes in current (sub)graph to partition
     n1<-length(i.remain)
     
+    #if a single node, terminate and check the next module
+    if (n1==1)
+    {
+      a<-a+1
+      next
+    }
+    
     A1<-A0[i.remain,i.remain]
     
     B<-B0[i.remain,i.remain]  #first part of Eq. 51 in Newman 2006
     diag(B)<-diag(B)-colSums(B)  #minus second part of Eq. 51 in Newman 2006
     
-    E<-eigen(B)
+    E<-eigen(B,symmetric=TRUE)
     
     #if indivisible, terminate and check the next queue
     if(max(E$values)<=1e-5){
@@ -122,7 +129,7 @@ cluseigen<-function(adj)
     
     A1[A1>0]<-1
     A1[A1<0]<-0
-    if(!is.connected(A1[i.pos,i.pos]) | !is.connected(A1[i.neg,i.neg])){
+    if(!is.connected(A1[i.pos,i.pos,drop=FALSE]) | !is.connected(A1[i.neg,i.neg,drop=FALSE])){
       a<-a+1
       next
     }

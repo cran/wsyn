@@ -38,15 +38,17 @@ is.connected<-function(adj)
   {
     stop("Error in is.connected: input must be a square matrix")
   }
-  if (dim(adj)[1]<2)
-  {
-    stop("Error in is.connected: input matrix must have dimensions at least 2")
-  }
   if (any(adj<0))
   {
     stop("Error in is.connected: input matrix cannot have negative entries")
   }
-  
+
+  #screen for 1x1 matrices, which are automatically connected
+  if (isTRUE(all.equal(dim(adj),c(1,1))))
+  {
+    return(TRUE)
+  }
+    
   #now do the algorithm
   if(length(which(colSums(adj)==0))>0)
   { #check for isolated nodes
