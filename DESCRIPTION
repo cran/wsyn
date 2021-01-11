@@ -1,5 +1,5 @@
 Package: wsyn
-Version: 1.0.2
+Version: 1.0.3
 Type: Package
 Title: Wavelet Approaches to Studies of Synchrony in Ecology and Other
         Fields
@@ -17,10 +17,10 @@ LazyData: true
 Imports: fields (>= 9.6), graphics (>= 3.4.4), grDevices (>= 3.4.4),
         MASS (>= 7.3-47), stats (>= 3.4.4)
 Suggests: knitr, mvtnorm, rmarkdown, testthat, vdiffr
-VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+VignetteBuilder: knitr, rmarkdown, mvtnorm
+RoxygenNote: 7.1.0
 NeedsCompilation: no
-Packaged: 2019-12-17 20:17:46 UTC; dreuman
+Packaged: 2021-01-11 11:20:46 UTC; dreuman
 Author: Daniel C. Reuman [aut, cre],
   Thomas L. Anderson [aut],
   Jonathan A. Walter [aut],
@@ -28,4 +28,4 @@ Author: Daniel C. Reuman [aut, cre],
   Lawrence W. Sheppard [aut]
 Maintainer: Daniel C. Reuman <reuman@ku.edu>
 Repository: CRAN
-Date/Publication: 2019-12-18 22:30:03 UTC
+Date/Publication: 2021-01-11 22:20:02 UTC

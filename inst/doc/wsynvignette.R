@@ -1,7 +1,7 @@
-## ----seed_setter_1, echo=F-----------------------------------------------
+## ----seed_setter_1, echo=F----------------------------------------------------
 set.seed(101)
 
-## ----wt_example_1_ts1----------------------------------------------------
+## ----wt_example_1_ts1---------------------------------------------------------
 time1<-1:100
 time2<-101:200
 times<-c(time1,time2)
@@ -12,45 +12,45 @@ ts1<-c(ts1p1,ts1p2)
   
 ts<-ts1
 
-## ----wt_example_1_ts2----------------------------------------------------
+## ----wt_example_1_ts2---------------------------------------------------------
 ts2p1<-0*time1
 ts2p2<-sin(2*pi*time2/8)
 ts2<-c(ts2p1,ts2p2)
   
 ts<-ts+ts2
 
-## ----wt_example_1_ts3----------------------------------------------------
+## ----wt_example_1_ts3---------------------------------------------------------
 ts3<-rnorm(200,mean=0,sd=0.5)
 ts<-ts+ts3
 
-## ----wt_example_1_wt-----------------------------------------------------
+## ----wt_example_1_wt----------------------------------------------------------
 library(wsyn)
 ts<-cleandat(ts,times,clev=1)
 wtres<-wt(ts$cdat,times)
 class(wtres)
 names(wtres)
 
-## ----wt_example_1_plot, results=FALSE------------------------------------
+## ----wt_example_1_plot, results=FALSE-----------------------------------------
 plotmag(wtres)
 
-## ----wt_example_1_plotphase, results=FALSE-------------------------------
+## ----wt_example_1_plotphase, results=FALSE------------------------------------
 plotphase(wtres)
 
-## ----wt_example_1_power, results=FALSE-----------------------------------
+## ----wt_example_1_power, results=FALSE----------------------------------------
 h<-power(wtres)
 plot(log(1/h$timescales),h$power,type='l',lty="solid",xaxt="n",
      xlab="Timescales",ylab="Power")
 xlocs<-c(min(h$timescales),pretty(h$timescales,n=8))
 graphics::axis(side=1,at=log(1/xlocs),labels=xlocs) 
 
-## ----wt_example_1_psmeth-------------------------------------------------
+## ----wt_example_1_psmeth------------------------------------------------------
 print(wtres)
 summary(wtres)
 
-## ----seed_setter_2, echo=F-----------------------------------------------
+## ----seed_setter_2, echo=F----------------------------------------------------
 set.seed(201)
 
-## ----wt_example_2, results=FALSE-----------------------------------------
+## ----wt_example_2, results=FALSE----------------------------------------------
 timeinc<-1 #one sample per year
 startfreq<-0.2 #cycles per year
 endfreq<-0.1 #cycles per year
@@ -63,16 +63,16 @@ res<-wt(t.series, times)
 plotmag(res)
 plotphase(res)
 
-## ----seed_setter_3, echo=F-----------------------------------------------
+## ----seed_setter_3, echo=F----------------------------------------------------
 set.seed(101)
 
-## ----wpmf_example_1_dat_1------------------------------------------------
+## ----wpmf_example_1_dat_1-----------------------------------------------------
 times1<-0:50
 times2<-51:100
 times<-c(times1,times2)
 ts1<-c(sin(2*pi*times1/10),sin(2*pi*times2/5))+1.1
 
-## ----wpmf_example_1_dat_2------------------------------------------------
+## ----wpmf_example_1_dat_2-----------------------------------------------------
 dat<-matrix(NA,11,length(times))
 for (counter in 1:dim(dat)[1])
 {
@@ -82,32 +82,32 @@ for (counter in 1:dim(dat)[1])
 }
 dat<-cleandat(dat,times,1)$cdat
 
-## ----wpmf_example_1_plotts-----------------------------------------------
+## ----wpmf_example_1_plotts----------------------------------------------------
 plot(times,dat[1,]/10+1,type='l',xlab="Time",ylab="Time series index",ylim=c(0,12))
 for (counter in 2:dim(dat)[1])
 {
   lines(times,dat[counter,]/10+counter)
 }
 
-## ----wpmf_example_1_cors-------------------------------------------------
+## ----wpmf_example_1_cors------------------------------------------------------
 cmat<-cor(t(dat))
 diag(cmat)<-NA
 cmat<-as.vector(cmat)
 cmat<-cmat[!is.na(cmat)]
 hist(cmat,30,xlab="Pearson correlation",ylab="Count")
 
-## ----wpmf_example_1, results=FALSE---------------------------------------
+## ----wpmf_example_1, results=FALSE--------------------------------------------
 res<-wpmf(dat,times,sigmethod="quick")
 plotmag(res)
 
-## ----wmf_example_1, results=FALSE----------------------------------------
+## ----wmf_example_1, results=FALSE---------------------------------------------
 res<-wpmf(dat,times)
 plotmag(res)
 
-## ----seed_setter_4, echo=F-----------------------------------------------
+## ----seed_setter_4, echo=F----------------------------------------------------
 set.seed(101)
 
-## ----coh_example_dat_driver----------------------------------------------
+## ----coh_example_dat_driver---------------------------------------------------
   times<-(-3:100)
   ts1<-sin(2*pi*times/10)
   ts2<-5*sin(2*pi*times/3)
@@ -117,7 +117,7 @@ set.seed(101)
     x[counter,]=ts1+ts2+rnorm(length(times),mean=0,sd=1.5)
   }
 
-## ----coh_example_dat_env-------------------------------------------------
+## ----coh_example_dat_env------------------------------------------------------
   times<-0:100
   y<-matrix(NA,11,length(times)) #the driven (biological) variable
   for (counter1 in 1:11)
@@ -132,7 +132,7 @@ set.seed(101)
   x<-cleandat(x,times,1)$cdat 
   y<-cleandat(y,times,1)$cdat
 
-## ----cors_range_widely---------------------------------------------------
+## ----cors_range_widely--------------------------------------------------------
 allcors<-c()
 for (counter in 1:dim(x)[1])
 {
@@ -140,43 +140,43 @@ for (counter in 1:dim(x)[1])
 }
 allcors
 
-## ----coh_example_call----------------------------------------------------
+## ----coh_example_call---------------------------------------------------------
 res<-coh(dat1=x,dat2=y,times=times,norm="powall",
          sigmethod="fftsurrog1",nrand=100,
          f0=0.5,scale.max.input=28)
 
-## ----coh_plot, results=FALSE---------------------------------------------
+## ----coh_plot, results=FALSE--------------------------------------------------
 plotmag(res)
 
-## ----coh_example_call_fast, results=FALSE--------------------------------
+## ----coh_example_call_fast, results=FALSE-------------------------------------
 res<-coh(dat1=x,dat2=y,times=times,norm="powall",
          sigmethod="fast",nrand=10000,
          f0=0.5,scale.max.input=28)
 plotmag(res)
 
-## ----bandtest------------------------------------------------------------
+## ----bandtest-----------------------------------------------------------------
 res<-bandtest(res,c(8,12))
 
-## ----bandtest_display_bandp----------------------------------------------
+## ----bandtest_display_bandp---------------------------------------------------
 get_bandp(res)
 
-## ----bandtest2-----------------------------------------------------------
+## ----bandtest2----------------------------------------------------------------
 res<-bandtest(res,c(2,4))
 get_bandp(res)
 
-## ----display_p_1, results=FALSE------------------------------------------
+## ----display_p_1, results=FALSE-----------------------------------------------
 plotmag(res)
 
-## ----plotrank_1, results=FALSE-------------------------------------------
+## ----plotrank_1, results=FALSE------------------------------------------------
 plotrank(res)
 
-## ----plotphase_1, results=FALSE------------------------------------------
+## ----plotphase_1, results=FALSE-----------------------------------------------
 plotphase(res)
 
-## ----seed_setter_5, echo=F-----------------------------------------------
+## ----seed_setter_5, echo=F----------------------------------------------------
 set.seed(3221) #221 #3221
 
-## ----driver_1------------------------------------------------------------
+## ----driver_1-----------------------------------------------------------------
 lts<-12
 sts<-3
 mats<-3
@@ -190,7 +190,7 @@ for (counter in 1:numlocs)
   d1[counter,]<-ts1+ts2+rnorm(length(times),mean=0,sd=1.5)
 }
 
-## ----driver_2------------------------------------------------------------
+## ----driver_2-----------------------------------------------------------------
 ts1<-sin(2*pi*times/lts)
 ts2<-sin(2*pi*times/sts)
 d2<-matrix(NA,numlocs,length(times)) #the second driver
@@ -199,14 +199,14 @@ for (counter in 1:numlocs)
   d2[counter,]<-ts1+ts2+rnorm(length(times),mean=0,sd=1.5)
 }
 
-## ----dirrel--------------------------------------------------------------
+## ----dirrel-------------------------------------------------------------------
 dirrel<-matrix(NA,numlocs,length(times)) #the irrelevant env var
 for (counter in 1:numlocs)
 {
   dirrel[counter,]<-rnorm(length(times),mean=0,sd=1.5)
 }
 
-## ----popdat--------------------------------------------------------------
+## ----popdat-------------------------------------------------------------------
 pops<-matrix(NA,numlocs,length(times)) #the populations
 for (counter in (mats+1):length(times))
 {
@@ -220,7 +220,7 @@ d2<-d2[,times>=0]
 dirrel<-dirrel[,times>=0]
 times<-times[times>=0]
 
-## ----wmfs_wlmexample, results=FALSE--------------------------------------
+## ----wmfs_wlmexample, results=FALSE-------------------------------------------
 dat<-list(pops=pops,d1=d1,d2=d2,dirrel=dirrel)
 dat<-lapply(FUN=function(x){cleandat(x,times,1)$cdat},X=dat)
 wmfpop<-wmf(dat$pops,times,scale.max.input=28)
@@ -230,15 +230,15 @@ plotmag(wmfd1)
 wmfd2<-wmf(dat$d2,times,scale.max.input=28)
 plotmag(wmfd2)
 
-## ----fit_mod_allpred-----------------------------------------------------
+## ----fit_mod_allpred----------------------------------------------------------
 wlm_all<-wlm(dat,times,resp=1,pred=2:4,norm="powall",scale.max.input=28)
 
-## ----sometests-----------------------------------------------------------
+## ----sometests----------------------------------------------------------------
 wlm_all_dropi<-wlmtest(wlm_all,drop="dirrel",sigmethod="fft",nrand=100)
 wlm_all_drop1<-wlmtest(wlm_all,drop="d1",sigmethod="fft",nrand=100)
 wlm_all_drop2<-wlmtest(wlm_all,drop="d2",sigmethod="fft",nrand=100)
 
-## ----dropdirrel_1, results=FALSE-----------------------------------------
+## ----dropdirrel_1, results=FALSE----------------------------------------------
 blong<-c(11,13)
 bshort<-c(2,4)
 wlm_all_dropi<-bandtest(wlm_all_dropi,band=blong)
@@ -246,38 +246,38 @@ wlm_all_dropi<-bandtest(wlm_all_dropi,band=bshort)
 plotmag(wlm_all_dropi)
 plotrank(wlm_all_dropi)
 
-## ----dropd1_1, results=FALSE---------------------------------------------
+## ----dropd1_1, results=FALSE--------------------------------------------------
 wlm_all_drop1<-bandtest(wlm_all_drop1,band=blong)
 wlm_all_drop1<-bandtest(wlm_all_drop1,band=bshort)
 plotmag(wlm_all_drop1)
 plotrank(wlm_all_drop1)
 
-## ----dropd2_1, results=FALSE---------------------------------------------
+## ----dropd2_1, results=FALSE--------------------------------------------------
 wlm_all_drop2<-bandtest(wlm_all_drop2,band=blong)
 wlm_all_drop2<-bandtest(wlm_all_drop2,band=bshort)
 plotmag(wlm_all_drop2)
 plotrank(wlm_all_drop2)
 
-## ----shortts_syncexpl----------------------------------------------------
+## ----shortts_syncexpl---------------------------------------------------------
 se<-syncexpl(wlm_all)
 se_short<-se[se$timescales>=bshort[1] & se$timescales<=bshort[2],]
 round(100*colMeans(se_short[,c(3:12)])/mean(se_short$sync),4)
 
-## ----longts_syncexpl-----------------------------------------------------
+## ----longts_syncexpl----------------------------------------------------------
 se_long<-se[se$timescales>=blong[1] & se$timescales<=blong[2],]
 round(100*colMeans(se_long[,c(3:12)])/mean(se_long$sync),4)
 
-## ----examp_predsync_1----------------------------------------------------
+## ----examp_predsync_1---------------------------------------------------------
 pres<-predsync(wlm_all)
 plotmag(pres)
 plotmag(wmfpop)
 
-## ----examp_predsync_2----------------------------------------------------
+## ----examp_predsync_2---------------------------------------------------------
 wlm_d1<-wlm(dat,times,resp=1,pred=2,norm="powall",scale.max.input=28)
 pres<-predsync(wlm_d1)
 plotmag(pres)
 
-## ----artificial_clustering_data------------------------------------------
+## ----artificial_clustering_data-----------------------------------------------
 N<-5
 Tmax<-100
 rho<-0.5
@@ -287,11 +287,11 @@ d<-t(cbind(mvtnorm::rmvnorm(Tmax,mean=rep(0,N),sigma=sig),
            mvtnorm::rmvnorm(Tmax,mean=rep(0,N),sigma=sig)))
 d<-cleandat(d,1:Tmax,1)$cdat
 
-## ----pearson_synmat------------------------------------------------------
+## ----pearson_synmat-----------------------------------------------------------
 sm<-synmat(d,1:Tmax,method="pearson")
 fields::image.plot(1:10,1:10,sm,col=heat.colors(20))
 
-## ----freq_spec_synmat----------------------------------------------------
+## ----freq_spec_synmat---------------------------------------------------------
 N<-20
 Tmax<-500
 tim<-1:Tmax
@@ -316,17 +316,17 @@ d<-t(d)
 
 d<-cleandat(d,1:Tmax,1)$cdat
 
-## ----detect_tsspecific_sync----------------------------------------------
+## ----detect_tsspecific_sync---------------------------------------------------
 sm5<-synmat(dat=d,times=1:Tmax,method="ReXWT",tsrange=c(4,6))
 fields::image.plot(1:N,1:N,sm5,col=heat.colors(20))
 sm12<-synmat(dat=d,times=1:Tmax,method="ReXWT",tsrange=c(11,13))
 fields::image.plot(1:N,1:N,sm12,col=heat.colors(20))
 
-## ----abuse_cor-----------------------------------------------------------
+## ----abuse_cor----------------------------------------------------------------
 sm<-synmat(dat=d,times=1:Tmax,method="pearson")
 fields::image.plot(1:N,1:N,sm,col=heat.colors(20))
 
-## ----clust_demo----------------------------------------------------------
+## ----clust_demo---------------------------------------------------------------
 #make some artificial coordinates for the geographic locations of where data were measured
 coords<-data.frame(X=c(rep(1,10),rep(2,10)),Y=rep(c(1:5,7:11),times=2))
 
